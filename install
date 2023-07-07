@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+backup() {
+  echo "Doing backup, buddy"
+  # Neovim
+  if [ -d $HOME/.config/nvim ]; then
+    mv $HOME/.config/nvim{,.old}
+  fi
+
+  # Alacritty
+  if [ -d $HOME/.config/alacritty ]; then
+    mv $HOME/.config/alacritty{,.old}
+  fi
+
+  # Tmux
+  if [ -d $HOME/.tmux ]; then
+    mv $HOME/.tmux{,.old}
+  fi
+
+  if [ -f $HOME/.tmux.conf ]; then
+    mv $HOME/.tmux.conf{,.old}
+  fi
+}
+
+neovim() {
+  ln -sf $(pwd)/nvim $HOME/.config/nvim
+}
+
+tmux() {
+  ln -sf $(pwd)/tmux.conf $HOME/.tmux.conf
+}
+
+alacritty() {
+
+  ln -sf $(pwd)/alacritty $HOME/.config/alacritty
+}
+
+backup
+neovim
+tmux
+alacritty
