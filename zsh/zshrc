@@ -1,0 +1,50 @@
+# Local Variables {{{
+HOMEBREW_PATH="/opt/homebrew/bin"
+ANTIGEN_PATH="$HOME/.config/antigen.zsh"
+# }}}
+
+# Global Variables {{{
+export EDITOR="nvim"
+export VISUAL="nvim"
+export PATH=$HOMEBREW_PATH:$PATH
+export HISTSIZE=10000
+export SAVEHIST=10000
+# }}}
+
+# asdf {{{
+if command -v asdf &> /dev/null; then
+  source $(brew --prefix asdf)/libexec/asdf.sh
+fi
+# }}}
+
+# antigen {{{
+if [ ! -f $ANTIGEN_PATH ]; then
+  echo "Antigen is not found!" >&2
+  curl -L git.io/antigen > $ANTIGEN_PATH
+fi
+
+source $ANTIGEN_PATH
+# }}}
+
+# Plugins {{{
+antigen bundle autojump                                           # Load autojump ohmyzsh's plugin
+antigen bundle git                                                # Load git ohmyzsh's plugin
+antigen bundle zsh-users/zsh-syntax-highlighting                  # Syntax highlighting bundle
+antigen bundle DarrinTisdale/zsh-aliases-exa                      # Add exa alises
+antigen bundle zsh-users/zsh-autosuggestions                      # Autocomplete bundle
+antigen theme spaceship-prompt/spaceship-prompt                   # Spaceship theme
+antigen apply
+# }}}
+
+# Aliases {{{
+alias vimdiff="nvim -d"
+alias t="task"
+alias gs="git status"
+# }}}
+
+# Autocompletion {{{
+autoload -Uz compinit
+compinit
+# }}}
+
+# vim:tabstop=2 shiftwidth=2 expandtab syntax=bash foldmethod=marker
